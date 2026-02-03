@@ -1,0 +1,9 @@
+{
+  "gw_captain": "Loading...",
+  "captain_reason": "Data will be updated by automation",
+  "differential": "Coming soon",
+  "differential_reason": "Awaiting first update",
+  "transfers_in": ["Pending"],
+  "transfers_out": ["Pending"],
+  "general_advice": "Initial placeholder data. First update runs on Friday."
+}
