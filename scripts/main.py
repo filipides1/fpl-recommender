@@ -97,7 +97,7 @@ Focus on form, fixtures, and value. Keep it concise."""
             "general_advice": "API temporarily unavailable"
         }
 
-def save_picks(recommendations, output_path='./data/picks.json'):
+def save_picks(recommendations, output_path='../data/picks.json'):
     """Save recommendations to JSON file"""
     with open(output_path, 'w') as f:
         json.dump(recommendations, f, indent=2)
