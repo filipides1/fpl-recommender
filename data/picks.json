@@ -1,9 +1,147 @@
 {
-  "gw_captain": "Loading...",
-  "captain_reason": "Data will be updated by automation",
-  "differential": "Coming soon",
-  "differential_reason": "Awaiting first update",
-  "transfers_in": ["Pending"],
-  "transfers_out": ["Pending"],
-  "general_advice": "Initial placeholder data. First update runs on Friday."
+  "gw_captain": "Semenyo",
+  "captain_reason": "Excellent form with high points and good upcoming fixtures",
+  "differential": "Summerville",
+  "differential_reason": "Low-owned player with great form and affordable price",
+  "transfers_in": {
+    "GKP": [
+      {
+        "name": "Raya",
+        "team": "Arsenal",
+        "reason": "Good form and fixtures"
+      }
+    ],
+    "DEF": [
+      {
+        "name": "Dorgu",
+        "team": "Man Utd",
+        "reason": "Excellent form and affordable price"
+      },
+      {
+        "name": "Gabriel",
+        "team": "Arsenal",
+        "reason": "Consistent points and good fixtures"
+      },
+      {
+        "name": "Senesi",
+        "team": "Bournemouth",
+        "reason": "Good form and value"
+      },
+      {
+        "name": "Thiaw",
+        "team": "Newcastle",
+        "reason": "Stable points and decent fixtures"
+      }
+    ],
+    "MID": [
+      {
+        "name": "B.Fernandes",
+        "team": "Man Utd",
+        "reason": "High points and excellent form"
+      },
+      {
+        "name": "Enzo",
+        "team": "Chelsea",
+        "reason": "Good form and decent fixtures"
+      },
+      {
+        "name": "Semenyo",
+        "team": "Man City",
+        "reason": "Excellent form and high points"
+      },
+      {
+        "name": "Wilson",
+        "team": "Fulham",
+        "reason": "Consistent points and good value"
+      },
+      {
+        "name": "Wirtz",
+        "team": "Liverpool",
+        "reason": "Good form and decent fixtures"
+      }
+    ],
+    "FWD": [
+      {
+        "name": "Thiago",
+        "team": "Brentford",
+        "reason": "Excellent form and high points"
+      },
+      {
+        "name": "Jo\u00e3o Pedro",
+        "team": "Chelsea",
+        "reason": "Good form and decent fixtures"
+      }
+    ]
+  },
+  "transfers_out": {
+    "GKP": [
+      {
+        "name": "Pickford",
+        "team": "Everton",
+        "reason": "Poor form and tough fixtures"
+      }
+    ],
+    "DEF": [
+      {
+        "name": "Murillo",
+        "team": "Nott'm Forest",
+        "reason": "Poor form and limited points"
+      },
+      {
+        "name": "Aina",
+        "team": "Nott'm Forest",
+        "reason": "Limited minutes and poor form"
+      },
+      {
+        "name": "Romero",
+        "team": "Spurs",
+        "reason": "Tough fixtures and limited points"
+      },
+      {
+        "name": "Mukiele",
+        "team": "Sunderland",
+        "reason": "Injury concerns and limited minutes"
+      }
+    ],
+    "MID": [
+      {
+        "name": "Cunha",
+        "team": "Man Utd",
+        "reason": "Poor form and limited points"
+      },
+      {
+        "name": "Gibbs-White",
+        "team": "Nott'm Forest",
+        "reason": "Tough fixtures and limited minutes"
+      },
+      {
+        "name": "Anderson",
+        "team": "Nott'm Forest",
+        "reason": "Injury concerns and poor form"
+      },
+      {
+        "name": "M.Fernandes",
+        "team": "West Ham",
+        "reason": "Limited points and poor form"
+      },
+      {
+        "name": "Scott",
+        "team": "Bournemouth",
+        "reason": "Limited minutes and poor form"
+      }
+    ],
+    "FWD": [
+      {
+        "name": "Evanilson",
+        "team": "Bournemouth",
+        "reason": "Poor form and limited points"
+      },
+      {
+        "name": "Kroupi.Jr",
+        "team": "Bournemouth",
+        "reason": "Limited minutes and poor form"
+      }
+    ]
+  },
+  "general_advice": "Focus on players with excellent form, good fixtures, and value to maximize points"
 }

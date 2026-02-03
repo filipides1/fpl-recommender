@@ -2,6 +2,10 @@ import requests
 import json
 import os
 from groq import Groq
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 def fetch_fpl_data():
     """Fetch FPL data from the official API"""
@@ -10,31 +14,43 @@ def fetch_fpl_data():
     return response.json()
 
 def filter_top_players(data):
-    """Filter and prepare top performing players"""
+    """Filter and prepare top performing players by position"""
     players = data['elements']
-    
-    # Sort by form and total points
-    top_by_form = sorted(
-        [p for p in players if p['minutes'] > 500],  # Players with significant game time
-        key=lambda x: (float(x['form']), x['total_points']),
-        reverse=True
-    )[:30]
-    
-    # Prepare context for AI
-    player_info = []
     teams = {team['id']: team['name'] for team in data['teams']}
     
-    for player in top_by_form:
-        info = {
-            'name': player['web_name'],
-            'team': teams[player['team']],
-            'position': ['GKP', 'DEF', 'MID', 'FWD'][player['element_type'] - 1],
-            'form': player['form'],
-            'points': player['total_points'],
-            'price': player['now_cost'] / 10,
-            'selected_by': player['selected_by_percent']
-        }
-        player_info.append(info)
+    # Filter players by position with minimum game time
+    positions = {
+        'GKP': [p for p in players if p['element_type'] == 1 and p['minutes'] > 300],
+        'DEF': [p for p in players if p['element_type'] == 2 and p['minutes'] > 500],
+        'MID': [p for p in players if p['element_type'] == 3 and p['minutes'] > 500],
+        'FWD': [p for p in players if p['element_type'] == 4 and p['minutes'] > 500]
+    }
+    
+    # Get top players per position
+    player_info = {}
+    for pos_key, pos_players in positions.items():
+        sorted_players = sorted(
+            pos_players,
+            key=lambda x: (float(x['form']), x['total_points']),
+            reverse=True
+        )
+        
+        # Get more players per position for better AI selection
+        count = {'GKP': 10, 'DEF': 20, 'MID': 25, 'FWD': 15}
+        top_for_position = sorted_players[:count[pos_key]]
+        
+        player_info[pos_key] = [
+            {
+                'name': p['web_name'],
+                'team': teams[p['team']],
+                'position': pos_key,
+                'form': p['form'],
+                'points': p['total_points'],
+                'price': p['now_cost'] / 10,
+                'selected_by': p['selected_by_percent']
+            }
+            for p in top_for_position
+        ]
     
     return player_info
 
@@ -56,10 +72,13 @@ def get_ai_recommendations(players_data):
     client = Groq(api_key=api_key)
     
     # Create prompt
-    prompt = f"""You are an expert Fantasy Premier League advisor. Based on this player data, provide recommendations in JSON format.
+    prompt = f"""You are an expert Fantasy Premier League advisor. Based on this player data organized by position, provide recommendations in JSON format.
 
-Player Data:
-{json.dumps(players_data[:20], indent=2)}
+Player Data by Position:
+Goalkeepers: {json.dumps(players_data['GKP'][:5], indent=2)}
+Defenders: {json.dumps(players_data['DEF'][:10], indent=2)}
+Midfielders: {json.dumps(players_data['MID'][:12], indent=2)}
+Forwards: {json.dumps(players_data['FWD'][:8], indent=2)}
 
 Provide your response in this exact JSON format:
 {{
@@ -67,19 +86,37 @@ Provide your response in this exact JSON format:
   "captain_reason": "Why this player is the best captain choice",
   "differential": "Player Name",
   "differential_reason": "Why this low-owned player could be valuable",
-  "transfers_in": ["Player1", "Player2", "Player3"],
-  "transfers_out": ["Reason1", "Reason2", "Reason3"],
+  "transfers_in": {{
+    "GKP": [{{"name": "Goalkeeper", "team": "Team", "reason": "Why"}}],
+    "DEF": [{{"name": "Defender1", "team": "Team", "reason": "Why"}}, {{"name": "Defender2", "team": "Team", "reason": "Why"}}, {{"name": "Defender3", "team": "Team", "reason": "Why"}}, {{"name": "Defender4", "team": "Team", "reason": "Why"}}],
+    "MID": [{{"name": "Midfielder1", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder2", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder3", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder4", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder5", "team": "Team", "reason": "Why"}}],
+    "FWD": [{{"name": "Forward1", "team": "Team", "reason": "Why"}}, {{"name": "Forward2", "team": "Team", "reason": "Why"}}]
+  }},
+  "transfers_out": {{
+    "GKP": [{{"name": "Goalkeeper", "team": "Team", "reason": "Why"}}],
+    "DEF": [{{"name": "Defender1", "team": "Team", "reason": "Why"}}, {{"name": "Defender2", "team": "Team", "reason": "Why"}}, {{"name": "Defender3", "team": "Team", "reason": "Why"}}, {{"name": "Defender4", "team": "Team", "reason": "Why"}}],
+    "MID": [{{"name": "Midfielder1", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder2", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder3", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder4", "team": "Team", "reason": "Why"}}, {{"name": "Midfielder5", "team": "Team", "reason": "Why"}}],
+    "FWD": [{{"name": "Forward1", "team": "Team", "reason": "Why"}}, {{"name": "Forward2", "team": "Team", "reason": "Why"}}]
+  }},
   "general_advice": "Overall strategy for this gameweek"
 }}
 
-Focus on form, fixtures, and value. Keep it concise."""
+IMPORTANT: 
+- Recommend exactly: 1 GKP, 4 DEF, 5 MID, 2 FWD for BOTH transfers_in and transfers_out
+- Use actual player names and teams from the provided data
+- For transfers_in: Choose players in excellent form with good fixtures
+- For transfers_out: Choose players losing form, injured, or with bad fixtures
+- Keep reasons brief (one sentence each)
+- Total: 12 players in, 12 players out
+
+Focus on form, fixtures, and value."""
 
     try:
         response = client.chat.completions.create(
-            model="gemma2-9b-it",
+            model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
-            max_tokens=1000,
+            max_tokens=3000,
             response_format={"type": "json_object"}
         )
         
@@ -92,8 +129,18 @@ Focus on form, fixtures, and value. Keep it concise."""
             "captain_reason": "API Error - Using default recommendation",
             "differential": "Mbeumo",
             "differential_reason": "Low ownership option",
-            "transfers_in": ["Form Player"],
-            "transfers_out": ["Check manually"],
+            "transfers_in": {
+                "GKP": [{"name": "Check manually", "team": "TBD", "reason": "API error"}],
+                "DEF": [{"name": "Check manually", "team": "TBD", "reason": "API error"}] * 4,
+                "MID": [{"name": "Check manually", "team": "TBD", "reason": "API error"}] * 5,
+                "FWD": [{"name": "Check manually", "team": "TBD", "reason": "API error"}] * 2
+            },
+            "transfers_out": {
+                "GKP": [{"name": "Check manually", "team": "TBD", "reason": "API error"}],
+                "DEF": [{"name": "Check manually", "team": "TBD", "reason": "API error"}] * 4,
+                "MID": [{"name": "Check manually", "team": "TBD", "reason": "API error"}] * 5,
+                "FWD": [{"name": "Check manually", "team": "TBD", "reason": "API error"}] * 2
+            },
             "general_advice": "API temporarily unavailable"
         }
 

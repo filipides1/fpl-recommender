@@ -6,7 +6,7 @@
           <span class="emoji">⚽</span>
           FPL AI Recommender
         </h1>
-        <p class="subtitle">Powered by Groq & Gemma 2 9B</p>
+        <p class="subtitle">Powered by Groq & Llama</p>
       </div>
     </header>
 
