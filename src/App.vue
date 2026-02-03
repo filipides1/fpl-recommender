@@ -71,7 +71,7 @@ export default {
 
     const fetchPicks = async () => {
       try {
-        const response = await fetch('/data/picks.json')
+        const response = await fetch('/picks.json')
         if (!response.ok) {
           throw new Error('Failed to load picks')
         }

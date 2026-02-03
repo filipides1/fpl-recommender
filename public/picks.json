@@ -1,0 +1,147 @@
+{
+  "gw_captain": "B.Fernandes",
+  "captain_reason": "Excellent form with 8.0 rating and high points return",
+  "differential": "Summerville",
+  "differential_reason": "Low-owned midfielder with high form rating of 7.2",
+  "transfers_in": {
+    "GKP": [
+      {
+        "name": "Raya",
+        "team": "Arsenal",
+        "reason": "High form and points return"
+      }
+    ],
+    "DEF": [
+      {
+        "name": "Dorgu",
+        "team": "Man Utd",
+        "reason": "High form rating of 7.0"
+      },
+      {
+        "name": "Gabriel",
+        "team": "Arsenal",
+        "reason": "Consistent points return"
+      },
+      {
+        "name": "Thiaw",
+        "team": "Newcastle",
+        "reason": "Good form and fixtures"
+      },
+      {
+        "name": "Senesi",
+        "team": "Bournemouth",
+        "reason": "High points return and good value"
+      }
+    ],
+    "MID": [
+      {
+        "name": "B.Fernandes",
+        "team": "Man Utd",
+        "reason": "Excellent form and high points return"
+      },
+      {
+        "name": "Wirtz",
+        "team": "Liverpool",
+        "reason": "High form rating of 7.4"
+      },
+      {
+        "name": "Enzo",
+        "team": "Chelsea",
+        "reason": "Good form and fixtures"
+      },
+      {
+        "name": "Semenyo",
+        "team": "Man City",
+        "reason": "High points return and good value"
+      },
+      {
+        "name": "Wilson",
+        "team": "Fulham",
+        "reason": "Consistent points return"
+      }
+    ],
+    "FWD": [
+      {
+        "name": "Thiago",
+        "team": "Brentford",
+        "reason": "High form rating of 7.0"
+      },
+      {
+        "name": "Jo\u00e3o Pedro",
+        "team": "Chelsea",
+        "reason": "Good form and fixtures"
+      }
+    ]
+  },
+  "transfers_out": {
+    "GKP": [
+      {
+        "name": "Sels",
+        "team": "Nott'm Forest",
+        "reason": "Poor form and low points return"
+      }
+    ],
+    "DEF": [
+      {
+        "name": "Murillo",
+        "team": "Nott'm Forest",
+        "reason": "Poor form and low points return"
+      },
+      {
+        "name": "Aina",
+        "team": "Nott'm Forest",
+        "reason": "Low points return and poor fixtures"
+      },
+      {
+        "name": "Romero",
+        "team": "Spurs",
+        "reason": "Declining form and points return"
+      },
+      {
+        "name": "Collins",
+        "team": "Brentford",
+        "reason": "Poor fixtures and low points return"
+      }
+    ],
+    "MID": [
+      {
+        "name": "Cunha",
+        "team": "Man Utd",
+        "reason": "Declining form and high price"
+      },
+      {
+        "name": "Gibbs-White",
+        "team": "Nott'm Forest",
+        "reason": "Poor fixtures and low points return"
+      },
+      {
+        "name": "Anderson",
+        "team": "Nott'm Forest",
+        "reason": "Declining form and low points return"
+      },
+      {
+        "name": "M.Fernandes",
+        "team": "West Ham",
+        "reason": "Low points return and poor fixtures"
+      },
+      {
+        "name": "Scott",
+        "team": "Bournemouth",
+        "reason": "Poor form and low points return"
+      }
+    ],
+    "FWD": [
+      {
+        "name": "Evanilson",
+        "team": "Bournemouth",
+        "reason": "Poor form and low points return"
+      },
+      {
+        "name": "Kroupi.Jr",
+        "team": "Bournemouth",
+        "reason": "Low points return and poor fixtures"
+      }
+    ]
+  },
+  "general_advice": "Focus on form, fixtures, and value, prioritizing high-form players with good upcoming matches"
+}
